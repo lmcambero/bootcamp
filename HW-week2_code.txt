@@ -1,0 +1,41 @@
+Sub Stocks()
+
+Dim ws As Worksheet
+
+For Each ws In ThisWorkbook.Worksheets
+ws.Activate
+
+    Dim StockTotal, ResultRow As Double
+
+    StockTotal = 0
+    ResultRow = 2
+
+    lastrow = Cells(Rows.Count, 1).End(xlUp).Row
+
+    For i = 2 To lastrow
+
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+        Category = Cells(i, 1).Value
+        StockTotal = StockTotal + Cells(i, 7).Value
+
+        Cells(1, 9).Value = "Ticker"
+        Range("I" & ResultRow).Value = Category
+
+        Cells(1, 10).Value = "Total Stock Volume"
+        Range("J" & ResultRow).Value = StockTotal
+
+        ResultRow = ResultRow + 1
+
+        StockTotal = 0
+
+       Else
+
+       StockTotal = StockTotal + Cells(i, 7).Value
+
+    End If
+
+    Next i
+
+Next ws
+
+End Sub
